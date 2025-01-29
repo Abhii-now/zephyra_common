@@ -3,7 +3,7 @@ import customFetch from "./customFetch";
 // filepath: /Users/abhinavjain/dev/zephyra/zephyra/src/cryptoUtils.js
 export async function generateKey() {
   const response = await customFetch(
-    `${process.env.REACT_APP_API_BASE_URL}/mynewapp/mynewapp/generate-aes-key/`
+    `${process.env.REACT_APP_API_BASE_URL}/mynewapp/generate-aes-key/`
   );
   console.log(response);
   const data = await response.json();
