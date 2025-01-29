@@ -36,14 +36,13 @@ def my_view(request: HttpRequest) -> JsonResponse:
     return JsonResponse({'message': 'Hello, world!,'})
 
 
-@require_auth(None)
+@require_auth("fetch:token")
 def generate_aes_key(request):
     key = os.urandom(32)  # Generate a random 256-bit key
     return JsonResponse({'key': b64encode(key).decode('utf-8')})
 
 
-@require_auth(None)
-@api_view(['POST'])
+@require_auth("fetch:token")
 def upload_file(request):
     key_hex = request.POST.get('key')
     iv_hex = request.POST.get('iv')
@@ -82,7 +81,6 @@ def upload_file(request):
     except IntegrityError:
             return JsonResponse({'status': 'error', 'message': 'A file with this name already exists'}, status=400)
 
-@api_view(['POST'])
 @require_auth("fetch:token")
 def generate_sharable_token(request):
     filename = request.POST.get('filename')
@@ -100,7 +98,6 @@ def generate_sharable_token(request):
     )
     return JsonResponse({'token': str(sharable_link_instance.token)})
 
-@api_view(['GET'])
 @require_auth(None)
 def fetch_encrypted_files(request):
     files = EncryptedFile.objects.all()
@@ -115,7 +112,6 @@ def fetch_encrypted_files(request):
     ]
     return JsonResponse({'files': files_data})
 
-@api_view(['POST'])
 @require_auth(None)
 def fetch_file_by_token(request):
     token = request.POST.get('token')
@@ -141,7 +137,6 @@ def fetch_file_by_token(request):
     }
     return JsonResponse(file_data)
 
-@api_view(['GET'])
 @require_auth(None)
 def fetch_encrypted_file(request, name):
     file = get_object_or_404(EncryptedFile, name=name)
