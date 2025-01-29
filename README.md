@@ -20,8 +20,8 @@ Zephyra is a comprehensive enterprise solution designed to streamline file shari
 1. **Clone the repository**:
 
    ```sh
-   git clone https://github.com/yourusername/zephyra.git
-   cd zephyra
+   git clone https://github.com/Abhii-now/zephyra_common.git
+   cd zephyra_common
    ```
 
 2. **Run Docker Compose**:
