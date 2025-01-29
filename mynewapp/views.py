@@ -31,18 +31,18 @@ require_auth.register_token_validator(validator)
 
 
 # @api_view(['GET'])
-@require_auth("fetch:token")
+@require_auth("view:details")
 def my_view(request: HttpRequest) -> JsonResponse:
     return JsonResponse({'message': 'Hello, world!,'})
 
 
-@require_auth("fetch:token")
+@require_auth("view:details")
 def generate_aes_key(request):
     key = os.urandom(32)  # Generate a random 256-bit key
     return JsonResponse({'key': b64encode(key).decode('utf-8')})
 
 
-@require_auth("fetch:token")
+@require_auth("view:details")
 def upload_file(request):
     key_hex = request.POST.get('key')
     iv_hex = request.POST.get('iv')
@@ -81,7 +81,7 @@ def upload_file(request):
     except IntegrityError:
             return JsonResponse({'status': 'error', 'message': 'A file with this name already exists'}, status=400)
 
-@require_auth("fetch:token")
+@require_auth("view:details")
 def generate_sharable_token(request):
     filename = request.POST.get('filename')
     user_ids = json.loads(request.POST.get('userId', '[]'))  # Get the array of user IDs from the request
