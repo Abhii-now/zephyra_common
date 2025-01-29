@@ -20,8 +20,9 @@ root.render(
         authorizationParams={{
           redirect_uri: window.location.origin,
           audience: "http://127.0.0.1:8000/",
-          scope: "read:users read:current_user update:current_user_metadata",
-          prompt: "select_account",
+          scope:
+            "edit:details view:details read:users read:current_user update:current_user_metadata",
+          // prompt: "select_account",
         }}
       >
         <AuthWrapper />
