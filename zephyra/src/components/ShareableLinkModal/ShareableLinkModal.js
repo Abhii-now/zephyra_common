@@ -76,7 +76,7 @@ const ShareableLinkModal = ({ show, handleClose }) => {
         }
         const data = await response.json();
         console.log(data);
-        const link = `http://localhost:3000/${data.token}`;
+        const link = `${window.location.origin}/${data.token}`;
         dispatch(setShareableLink(link));
         dispatch(setShowAlert(true));
         break;
